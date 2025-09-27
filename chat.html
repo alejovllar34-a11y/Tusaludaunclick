@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat - Tu salud a un clic</title>
+  <link rel="stylesheet" href="css/chat.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bree+Serif&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <div class="chat-wrapper">
+    <!-- Encabezado -->
+    <header class="chat-header">
+      <a href="index.html" class="btn-atras">Atrás</a>
+      <div class="header-center">
+        <img src="img/logo.png" alt="Logo" class="chat-logo">
+        <h1>Tu salud a un clic</h1>
+      </div>
+    </header>
+
+    <!-- Contenedor del chat -->
+    <div class="chat-container">
+      <div class="chat-body" id="chat-box">
+        <div class="message bot">Hola soy Matheus, ¿en qué puedo ayudarte?</div>
+      </div>
+
+      <div class="chat-input">
+        <input type="text" id="user-input" placeholder="Escribe tu mensaje...">
+        <button onclick="sendMessage()">Enviar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function sendMessage() {
+      const input = document.getElementById("user-input");
+      const chatBox = document.getElementById("chat-box");
+      const userMessage = input.value.trim();
+
+      if (userMessage !== "") {
+        // Mensaje del usuario
+        const userDiv = document.createElement("div");
+        userDiv.classList.add("message", "user");
+        userDiv.textContent = userMessage;
+        chatBox.appendChild(userDiv);
+
+        // Respuesta automática
+        const botDiv = document.createElement("div");
+        botDiv.classList.add("message", "bot");
+        botDiv.textContent = getBotResponse(userMessage);
+        chatBox.appendChild(botDiv);
+
+        chatBox.scrollTop = chatBox.scrollHeight;
+        input.value = "";
+      }
+    }
+
+    function getBotResponse(message) {
+      message = message.toLowerCase();
+
+      if (message.includes("cita")) {
+        return "Claro, ¿quieres agendar una cita médica?";
+      } else if (message.includes("doctor")) {
+        return "Tenemos especialistas disponibles, ¿qué tipo de doctor buscas?";
+      } else if (message.includes("gracias")) {
+        return "¡Con gusto! Estoy para ayudarte.";
+      } else {
+        return "Lo siento, aún estoy aprendiendo. ¿Podrías ser más específico?";
+      }
+    }
+  </script>
+</body>
+
+</html>
